@@ -34,8 +34,10 @@ configurations {
 dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
-	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+//	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    mappings loom.officialMojangMappings()
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    implementation "com.google.code.findbugs:jsr305:3.0.2"
 
 	// runtime mods
 //	if (mcVersion < 11904) {
@@ -59,10 +61,11 @@ dependencies {
 
     modCompileOnly "com.terraformersmc:modmenu:${project.mod_menu_version}"
 
-    if (!project.hasProperty("malilib_projectid") || mcVersion < 12005) {
+    //  || mcVersion < 12005
+    if (!project.hasProperty("malilib_projectid")) {
         modImplementation "fi.dy.masa.malilib:${project.malilib_version}"
     } else {
-        modImplementation "com.github.sakura-ryoko:${project.malilib_version}"
+        modImplementation "com.github.${project.malilib_projectid}:${project.malilib_version}"
     }
 }
 

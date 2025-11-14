@@ -26,49 +26,38 @@ import java.util.Map;
 //#else
 import java.util.Set;
 //#endif
+import javax.annotation.Nullable;
+import org.lwjgl.glfw.GLFW;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+
+import fi.dy.masa.malilib.util.KeyCodes;
 import com.sakuraryoko.vkm.VanKeyMngr;
 import com.sakuraryoko.vkm.config.Configs;
-import fi.dy.masa.malilib.util.KeyCodes;
-import org.jetbrains.annotations.Nullable;
-
-//#if MC >= 11605
-//$$ import net.minecraft.client.option.KeyBinding;
-//#else
-import net.minecraft.client.options.KeyBinding;
-//#endif
-import net.minecraft.client.util.InputUtil;
-import org.lwjgl.glfw.GLFW;
 
 public class KeybindUtil
 {
 //#if MC >= 12109
-    //$$ protected static final Map<String, KeyBinding> MAP_BY_ID = KeyBinding.KEYS_BY_ID;
-    //$$ protected static final Map<InputUtil.Key, List<KeyBinding>> MAP_BY_CODE = KeyBinding.KEY_TO_BINDINGS;
-    //$$ protected static final List<KeyBinding.Category> SET_CAT_LIST = KeyBinding.Category.CATEGORIES;
-//#elseif MC >= 11701
-    //$$ protected static final Map<String, KeyBinding> MAP_BY_ID = KeyBinding.KEYS_BY_ID;
-    //$$ protected static final Map<InputUtil.Key, KeyBinding> MAP_BY_CODE = KeyBinding.KEY_TO_BINDINGS;
-    //$$ protected static final Set<String> SET_CAT_LIST = KeyBinding.KEY_CATEGORIES;
-//#elseif MC >= 11605
-    //$$ protected static final Map<String, KeyBinding> MAP_BY_ID = KeyBinding.keysById;
-    //$$ protected static final Map<InputUtil.Key, KeyBinding> MAP_BY_CODE = KeyBinding.keyToBindings;
-    //$$ protected static final Set<String> SET_CAT_LIST = KeyBinding.keyCategories;
+    //$$ protected static final Map<String, KeyMapping> MAP_BY_ID = KeyMapping.ALL;
+    //$$ protected static final Map<InputConstants.Key, List<KeyMapping>> MAP_BY_CODE = KeyMapping.MAP;
+    //$$ protected static final List<KeyMapping.Category> SET_CAT_LIST = KeyMapping.Category.SORT_ORDER;
 //#else
-    protected static final Map<String, KeyBinding> MAP_BY_ID = KeyBinding.keysById;
-    protected static final Map<InputUtil.KeyCode, KeyBinding> MAP_BY_CODE = KeyBinding.keysByCode;
-    protected static final Set<String> SET_CAT_LIST = KeyBinding.keyCategories;
+    protected static final Map<String, KeyMapping> MAP_BY_ID = KeyMapping.ALL;
+    protected static final Map<InputConstants.Key, KeyMapping> MAP_BY_CODE = KeyMapping.MAP;
+    protected static final Set<String> SET_CAT_LIST = KeyMapping.CATEGORIES;
 //#endif
-    protected static final Map<String, InputUtil.KeyCode> MAP_BY_NAME = InputUtil.KeyCode.NAMES;
+    protected static final Map<String, InputConstants.Key> MAP_BY_NAME = InputConstants.Key.NAME_MAP;
+	protected static final InputConstants.Key UNKNOWN_KEYCODE = InputConstants.UNKNOWN;
 
 	@Nullable
-    protected static KeyBinding getByIdVanilla(final String id)
+    protected static KeyMapping getByIdVanilla(final String id)
 	{
 		return MAP_BY_ID.getOrDefault(id, null);
 	}
 
 //#if MC >= 12109
-    //$$ public static List<KeyBinding.Category> getCategoriesVanilla()
+    //$$ public static List<KeyMapping.Category> getCategoriesVanilla()
 //#else
     public static Set<String> getCategoriesVanilla()
 //#endif
@@ -77,13 +66,13 @@ public class KeybindUtil
     }
 
     @Nullable
-    protected static InputUtil.KeyCode getKeyCodeByName(final String name)
+    protected static InputConstants.Key getKeyCodeByName(final String name)
     {
         return MAP_BY_NAME.getOrDefault(name, null);
     }
 
     @Nullable
-    protected static InputUtil.KeyCode getKeyCodeByType(final InputUtil.Type type, final int key)
+    protected static InputConstants.Key getKeyCodeByType(final InputConstants.Type type, final int key)
     {
         return type.map.getOrDefault(key, null);
     }
@@ -100,16 +89,15 @@ public class KeybindUtil
         return GLFW.glfwGetKeyName(-1, scanCode);
     }
 
-    @Nullable
-    public static String getTypeName(InputUtil.Type type)
+    public static String getTypeName(InputConstants.Type type)
     {
-        return type.name;
+        return type.name();
     }
 
     @Nullable
     protected static KeybindWrapper getById(final String id)
 	{
-		KeyBinding keyBinding = getByIdVanilla(id);
+		KeyMapping keyBinding = getByIdVanilla(id);
 
 		if (keyBinding == null)
 		{
@@ -119,12 +107,12 @@ public class KeybindUtil
 		return new KeybindWrapper(keyBinding);
 	}
 
-    protected static boolean updateByID(final String id, InputUtil.KeyCode newKeyCode)
+    protected static boolean updateByID(final String id, InputConstants.Key newKeyCode)
     {
         try
         {
-            MAP_BY_ID.get(id).setKeyCode(newKeyCode);
-            KeyBinding.updateKeysByCode();
+            MAP_BY_ID.get(id).setKey(newKeyCode);
+            KeyMapping.resetMapping();
             return true;
         }
         catch (Exception err)
@@ -134,16 +122,16 @@ public class KeybindUtil
         }
     }
 
-    protected static void setPressed(KeyBinding keyBind, boolean toggle)
+    protected static void setPressed(KeyMapping keyBind, boolean toggle)
     {
         //#if MC >= 11502
-        //$$ keyBind.setPressed(toggle);
+        //$$ keyBind.setDown(toggle);
         //#else
-        keyBind.pressed = toggle;
+        keyBind.isDown = toggle;
 
         if (toggle)
         {
-            ++keyBind.timesPressed;
+            ++keyBind.clickCount;
         }
         //#endif
     }
@@ -152,11 +140,11 @@ public class KeybindUtil
     {
         try
         {
-            KeyBinding keybind = MAP_BY_ID.get(id);
-            keybind.setKeyCode(keybind.getDefaultKeyCode());
+            KeyMapping keybind = MAP_BY_ID.get(id);
+            keybind.setKey(keybind.getDefaultKey());
             setPressed(keybind, false);
             MAP_BY_ID.put(id, keybind);
-            KeyBinding.updateKeysByCode();
+            KeyMapping.resetMapping();
             return true;
         }
         catch (Exception err)
@@ -187,7 +175,7 @@ public class KeybindUtil
     public static String buildConfigComment(KeybindWrapper keybind)
     {
         final String cat = Configs.Generic.CATEGORY_COLOR_PREFIX.getStringValue();
-        final String id = Configs.Generic.NAME_COLOR_PREFIX.getStringValue();
+        final String  id = Configs.Generic.NAME_COLOR_PREFIX.getStringValue();
 
         return "Minecraft Keybind:\nCategory: "+cat+keybind.getTranslatedCategory()+"§r\nName: "+id+keybind.getTranslatedId()+"§r";
     }
@@ -195,7 +183,7 @@ public class KeybindUtil
     public static String buildConfigPrettyName(KeybindWrapper keybind)
     {
         final String cat = Configs.Generic.CATEGORY_COLOR_PREFIX.getStringValue();
-        final String id = Configs.Generic.NAME_COLOR_PREFIX.getStringValue();
+        final String  id = Configs.Generic.NAME_COLOR_PREFIX.getStringValue();
 
         return "["+cat+keybind.getTranslatedCategory()+"§r] ("+id+keybind.getTranslatedId()+"§r)";
     }

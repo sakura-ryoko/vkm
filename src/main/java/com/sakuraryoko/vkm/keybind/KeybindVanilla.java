@@ -20,21 +20,24 @@
 
 package com.sakuraryoko.vkm.keybind;
 
-//#if MC >= 12105
-//$$ import com.mojang.serialization.Codec;
-//#else
-//#endif
-import com.sakuraryoko.vkm.util.KeyType;
-import fi.dy.masa.malilib.hotkeys.*;
-import fi.dy.masa.malilib.util.KeyCodes;
-import org.jetbrains.annotations.Nullable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import javax.annotation.Nullable;
 
+//#if MC >= 12105
+//$$ import com.mojang.serialization.Codec;
+//#else
+//#endif
+
+import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
+import fi.dy.masa.malilib.hotkeys.IKeybind;
+import fi.dy.masa.malilib.hotkeys.KeyAction;
+import fi.dy.masa.malilib.hotkeys.KeybindSettings;
+import fi.dy.masa.malilib.util.KeyCodes;
 import com.sakuraryoko.vkm.util.KeyCodeWrapper;
+import com.sakuraryoko.vkm.util.KeyType;
 
 public class KeybindVanilla implements IKeybind
 {
@@ -53,13 +56,13 @@ public class KeybindVanilla implements IKeybind
     public int getDefaultKeyCode()
     {
 		KeyCodeWrapper keyCode = this.keybind.getDefaultKeyCode();
-		return keyCode.getType().isMouse() ? keyCode.getKeyCode() - 100 : keyCode.getKeyCode();
+	    return keyCode.getType().isMouse() ? keyCode.getKeyCode() - 100 : keyCode.getKeyCode();
     }
 
     public int getKeyCode()
     {
 		KeyCodeWrapper keyCode = this.keybind.getKeyCode();
-		return keyCode.getType().isMouse() ? keyCode.getKeyCode() - 100 : keyCode.getKeyCode();
+	    return keyCode.getType().isMouse() ? keyCode.getKeyCode() - 100 : keyCode.getKeyCode();
     }
 
     @Override
@@ -142,6 +145,7 @@ public class KeybindVanilla implements IKeybind
     public void addKey(int keyCode)
     {
 		KeyType type = KeyType.KEYBOARD;
+	    int origKeyCode = keyCode;
 
 		if (keyCode < -1)
 		{
@@ -167,11 +171,14 @@ public class KeybindVanilla implements IKeybind
     @Override
     public boolean overlaps(IKeybind other)
     {
-        if (other == this || this.getKeyCode() == -1 ||
+        if (other == this ||
             other.getKeys().isEmpty() || other.getKeys().getFirst() == -1)
         {
             return false;
         }
+
+		int keyCode = this.getKeyCode();
+		if (keyCode == -1) return false;
 
         if (other instanceof KeybindVanilla)
         {
@@ -182,7 +189,7 @@ public class KeybindVanilla implements IKeybind
                 return false;
             }
 
-            return kbv.keybind.matchesKey(this.getKeyCode(), -1) || kbv.keybind.matchesMouse(this.getKeyCode());
+            return kbv.keybind.matchesKey(keyCode, -1) || kbv.keybind.matchesMouse(keyCode);
         }
 
         // Cloned from KeybindMulti to have similar behavior.

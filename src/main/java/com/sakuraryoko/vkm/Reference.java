@@ -30,9 +30,9 @@ public class Reference
     public static final String MOD_SHORT_NAME = "Vanilla Key Mngr";
     public static final String MOD_VERSION = StringUtils.getModVersionString(MOD_ID);
 //#if MC >= 12106
-//$$ public static final String MC_VERSION = SharedConstants.getGameVersion().name();
+//$$ public static final String MC_VERSION = SharedConstants.getCurrentVersion().name();
 //#else
-    public static final String MC_VERSION = SharedConstants.getGameVersion().getName();
+    public static final String MC_VERSION = SharedConstants.getCurrentVersion().getName();
 //#endif
     public static final String MOD_TYPE = "fabric";
     public static final String MOD_STRING = MOD_ID + "-" + MOD_TYPE + "-" + MC_VERSION + "-" + MOD_VERSION;

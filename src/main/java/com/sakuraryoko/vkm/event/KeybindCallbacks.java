@@ -20,15 +20,16 @@
 
 package com.sakuraryoko.vkm.event;
 
-import com.sakuraryoko.vkm.config.Hotkeys;
-import com.sakuraryoko.vkm.gui.GuiConfigs;
-import com.sakuraryoko.vkm.keybind.KeybindManager;
+import net.minecraft.client.Minecraft;
+
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.gui.GuiBase;
 import fi.dy.masa.malilib.hotkeys.IHotkeyCallback;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
 import fi.dy.masa.malilib.hotkeys.KeyAction;
-import net.minecraft.client.MinecraftClient;
+import com.sakuraryoko.vkm.config.Hotkeys;
+import com.sakuraryoko.vkm.gui.GuiConfigs;
+import com.sakuraryoko.vkm.keybind.KeybindManager;
 
 public class KeybindCallbacks implements IHotkeyCallback
 {
@@ -56,9 +57,9 @@ public class KeybindCallbacks implements IHotkeyCallback
 
     private boolean onKeyActionImpl(KeyAction action, IKeybind key)
     {
-        MinecraftClient mc = MinecraftClient.getInstance();
+        Minecraft mc = Minecraft.getInstance();
 
-        if (mc.player == null || mc.world == null)
+        if (mc.player == null || mc.level == null)
         {
             return false;
         }

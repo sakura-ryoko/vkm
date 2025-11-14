@@ -20,7 +20,7 @@
 
 package com.sakuraryoko.vkm.util;
 
-import net.minecraft.client.util.InputUtil;
+import com.mojang.blaze3d.platform.InputConstants;
 
 public enum KeyType
 {
@@ -41,19 +41,19 @@ public enum KeyType
         return this.name;
     }
 
-    public InputUtil.Type toVanilla()
+    public InputConstants.Type toVanilla()
     {
         switch (this.name)
         {
-            case "mouse": { return InputUtil.Type.MOUSE; }
-            case "scancode": { return InputUtil.Type.SCANCODE; }
-            default: { return InputUtil.Type.KEYSYM; }
+            case "mouse": { return InputConstants.Type.MOUSE; }
+            case "scancode": { return InputConstants.Type.SCANCODE; }
+            default: { return InputConstants.Type.KEYSYM; }
         }
     }
 
-    public static KeyType fromVanilla(InputUtil.Type type)
+    public static KeyType fromVanilla(InputConstants.Type type)
     {
-        String name = type.name;
+        String name = type.defaultPrefix;
 
         switch (name)
         {

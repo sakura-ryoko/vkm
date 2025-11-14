@@ -23,15 +23,16 @@ package com.sakuraryoko.vkm.config.option;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import com.sakuraryoko.vkm.keybind.KeybindUtil;
-import com.sakuraryoko.vkm.keybind.KeybindVanilla;
-import com.sakuraryoko.vkm.keybind.KeybindWrapper;
+
 import fi.dy.masa.malilib.config.ConfigType;
 import fi.dy.masa.malilib.config.IStringRepresentable;
 import fi.dy.masa.malilib.config.options.ConfigBase;
 import fi.dy.masa.malilib.config.options.ConfigHotkey;
 import fi.dy.masa.malilib.hotkeys.IHotkey;
 import fi.dy.masa.malilib.hotkeys.IKeybind;
+import com.sakuraryoko.vkm.keybind.KeybindUtil;
+import com.sakuraryoko.vkm.keybind.KeybindVanilla;
+import com.sakuraryoko.vkm.keybind.KeybindWrapper;
 
 public class ConfigKeybindVanilla extends ConfigBase<ConfigHotkey> implements IHotkey, IStringRepresentable
 {

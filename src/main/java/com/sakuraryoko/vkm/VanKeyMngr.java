@@ -20,11 +20,12 @@
 
 package com.sakuraryoko.vkm;
 
-import com.sakuraryoko.vkm.config.Configs;
-import fi.dy.masa.malilib.event.InitializationHandler;
-import net.fabricmc.api.ModInitializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import net.fabricmc.api.ModInitializer;
+import com.sakuraryoko.vkm.config.Configs;
+import fi.dy.masa.malilib.event.InitializationHandler;
 
 public class VanKeyMngr implements ModInitializer
 {

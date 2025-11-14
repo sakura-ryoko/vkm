@@ -20,11 +20,11 @@
 
 package com.sakuraryoko.vkm.config;
 
-import com.google.common.collect.ImmutableList;
-import com.sakuraryoko.vkm.Reference;
-import fi.dy.masa.malilib.config.options.ConfigHotkey;
-
 import java.util.List;
+import com.google.common.collect.ImmutableList;
+
+import fi.dy.masa.malilib.config.options.ConfigHotkey;
+import com.sakuraryoko.vkm.Reference;
 
 public class Hotkeys
 {

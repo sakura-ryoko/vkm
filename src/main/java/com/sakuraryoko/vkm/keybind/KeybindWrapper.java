@@ -21,31 +21,29 @@
 package com.sakuraryoko.vkm.keybind;
 
 import java.util.concurrent.atomic.AtomicReference;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+//#if MC >= 11904
+//#else
+import net.minecraft.network.chat.TextComponent;
+//#endif
+//#if MC >= 12109
+//$$ import net.minecraft.client.input.KeyEvent;
+//#endif
+
+import fi.dy.masa.malilib.util.JsonUtils;
 import com.sakuraryoko.vkm.VanKeyMngr;
 import com.sakuraryoko.vkm.util.KeyCategoryWrapper;
 import com.sakuraryoko.vkm.util.KeyCodeWrapper;
 import com.sakuraryoko.vkm.util.KeyType;
 import com.sakuraryoko.vkm.util.KeyTypeWrapper;
-//#if MC >= 12001
-//#else
-import net.minecraft.text.LiteralText;
-//#endif
-//#if MC >= 12109
-//$$ import net.minecraft.client.input.KeyInput;
-//#endif
-import net.minecraft.text.Text;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import net.minecraft.client.options.KeyBinding;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.InputUtil;
-
-import fi.dy.masa.malilib.util.JsonUtils;
 
 public class KeybindWrapper
 {
@@ -78,16 +76,16 @@ public class KeybindWrapper
 		this.pressed = false;
 	}
 
-	public KeybindWrapper(KeyBinding keyBinding)
+	public KeybindWrapper(KeyMapping keyBinding)
 	{
-		this.id = keyBinding.getId();
+		this.id = keyBinding.getName();
 		this.category = KeyCategoryWrapper.fromVanilla(keyBinding.getCategory());
-		this.defaultKeyCode = new KeyCodeWrapper(keyBinding.getDefaultKeyCode());
-		this.keyCode = new KeyCodeWrapper(keyBinding.keyCode);
+		this.defaultKeyCode = new KeyCodeWrapper(keyBinding.getDefaultKey());
+		this.keyCode = new KeyCodeWrapper(keyBinding.key);
         //#if MC >= 11605
-        //$$ this.translationKey = keyBinding.boundKey.getTranslationKey();
+        //$$ this.translationKey = keyBinding.key.getName();
         //#else
-        this.translationKey = this.buildVanillaTranslationKey(keyBinding.keyCode);
+        this.translationKey = this.buildVanillaTranslationKey(keyBinding.key);
         //#endif
 		this.pressed = false;
 	}
@@ -101,13 +99,13 @@ public class KeybindWrapper
 		this.keyCode = key;
 	}
 
-	private String buildVanillaTranslationKey(InputUtil.KeyCode keyCode)
+	private String buildVanillaTranslationKey(InputConstants.Key key)
 	{
-		String keyCodeName = keyCode.getName();
-		int code = keyCode.getKeyCode();
+		String keyCodeName = key.getName();
+		int code = key.getValue();
 		String scanCodeName = null;
 
-		switch (keyCode.getCategory())
+		switch (key.getType())
 		{
 			case KEYSYM:
 				scanCodeName = KeybindUtil.getKeycodeName(code);
@@ -116,10 +114,10 @@ public class KeybindWrapper
 				scanCodeName = KeybindUtil.getScancodeName(code);
 				break;
 			case MOUSE:
-				scanCodeName = KeybindUtil.getTypeName(InputUtil.Type.MOUSE) +"."+ (code + 1);
+				scanCodeName = KeybindUtil.getTypeName(InputConstants.Type.MOUSE) +"."+ (code + 1);
 		}
 
-		return scanCodeName == null ? I18n.translate(keyCodeName) : scanCodeName;
+		return scanCodeName == null ? I18n.get(keyCodeName) : scanCodeName;
 	}
 
 	public String getId()
@@ -147,24 +145,24 @@ public class KeybindWrapper
 		return this.keyCode;
 	}
 
-	public InputUtil.@Nullable KeyCode getDefaultKeyCodeVanilla()
+	public @Nullable InputConstants.Key getDefaultKeyCodeVanilla()
 	{
 		return this.defaultKeyCode.getVanilla();
 	}
 
-	public InputUtil.@Nullable KeyCode getKeyCodeVanilla()
+	public @Nullable InputConstants.Key getKeyCodeVanilla()
 	{
 		return this.keyCode.getVanilla();
 	}
 
-	public void setKeyCode(@NotNull KeyCodeWrapper keyCode)
+	public void setKeyCode(@Nonnull KeyCodeWrapper keyCode)
 	{
 		this.keyCode = keyCode;
 	}
 
-	public void setKeyCode(@NotNull InputUtil.KeyCode keyCode)
+	public void setKeyCode(@Nonnull InputConstants.Key key)
 	{
-		this.keyCode = new KeyCodeWrapper(keyCode);
+		this.keyCode = new KeyCodeWrapper(key);
 	}
 
 	public void setPressed(boolean toggle)
@@ -194,14 +192,14 @@ public class KeybindWrapper
 
 	public String getTranslated()
 	{
-		if (I18n.hasTranslation(this.translationKey))
+		if (I18n.exists(this.translationKey))
 		{
-			return I18n.translate(this.translationKey);
+			return I18n.get(this.translationKey);
 		}
 
-        if (I18n.hasTranslation(this.id))
+        if (I18n.exists(this.id))
         {
-            return I18n.translate(this.id);
+            return I18n.get(this.id);
         }
 
 		return this.id;
@@ -210,14 +208,14 @@ public class KeybindWrapper
 //#if MC >= 12109
     //$$ public String getTranslatedCategory()
     //$$ {
-        //$$ return this.category.getVanilla().getLabel().getString();
+        //$$ return this.category.getVanilla().label().getString();
     //$$ }
 //#else
     public String getTranslatedCategory()
     {
-        if (I18n.hasTranslation(this.category.getVanilla()))
+        if (I18n.exists(this.category.getVanilla()))
         {
-            return I18n.translate(this.category.getVanilla());
+            return I18n.get(this.category.getVanilla());
         }
 
         return this.category.getVanilla();
@@ -226,9 +224,9 @@ public class KeybindWrapper
 
     public String getTranslatedId()
     {
-        if (I18n.hasTranslation(this.id))
+        if (I18n.exists(this.id))
         {
-            return I18n.translate(this.id);
+            return I18n.get(this.id);
         }
 
         return this.id;
@@ -244,7 +242,7 @@ public class KeybindWrapper
         return this.translationKey;
     }
 
-    public Text getBoundTranslated()
+    public Component getBoundTranslated()
     {
         if (this.keyCode != null)
         {
@@ -252,9 +250,9 @@ public class KeybindWrapper
         }
 
 //#if MC >= 11904
-        //$$ return Text.of(this.getTranslated());
+        //$$ return Component.literal(this.getTranslated());
 //#else
-        return new LiteralText(this.getTranslated());
+        return new TextComponent(this.getTranslated());
 //#endif
     }
 
@@ -280,7 +278,7 @@ public class KeybindWrapper
 		return this.keyCode.equals(this.defaultKeyCode);
 	}
 
-	public KeyBinding getVanillaById()
+	public KeyMapping getVanillaById()
 	{
 		return KeybindUtil.getByIdVanilla(this.id);
 	}
@@ -297,38 +295,38 @@ public class KeybindWrapper
         this.pressed = false;
     }
 
-    public void update(int key, int scanCode, KeyType type)
+    public void update(int keyCode, int scanCode, KeyType type)
     {
-		VanKeyMngr.debugLog("KeybindWrapper#update():IN: key: [{}], scanCode: [{}]", key, scanCode);
-		InputUtil.KeyCode keyCode;
+		VanKeyMngr.debugLog("KeybindWrapper#update():IN: key: [{}], scanCode: [{}]", keyCode, scanCode);
+		InputConstants.Key key;
 
 		if (type == KeyType.KEYBOARD)
 		{
 //#if MC >= 12109
-            //$$ keyCode = InputUtil.fromKeyCode(new KeyInput(key, scanCode, -1));
+            //$$ key = InputConstants.getKey(new KeyEvent(keyCode, scanCode, -1));
 //#else
-            keyCode = InputUtil.getKeyCode(key, scanCode);
+			key = InputConstants.getKey(keyCode, scanCode);
 //#endif
 		}
 		else
 		{
-			keyCode = this.matchMouseKeyCode(key);
+			key = this.matchMouseKeyCode(keyCode);
 		}
 
         this.reset();
-        KeybindUtil.updateByID(this.id, keyCode);
-        this.keyCode = new KeyCodeWrapper(keyCode);
+        KeybindUtil.updateByID(this.id, key);
+        this.keyCode = new KeyCodeWrapper(key);
 		VanKeyMngr.debugLog("KeybindWrapper#update():OUT: name: [{}], keyCode: [{}]", this.keyCode.getName(), this.keyCode.getKeyCode());
     }
 
-	public InputUtil.KeyCode matchMouseKeyCode(int keyCode)
+	public InputConstants.Key matchMouseKeyCode(int keyCode)
 	{
-		AtomicReference<InputUtil.KeyCode> result = new AtomicReference<>(InputUtil.UNKNOWN_KEYCODE);
+		AtomicReference<InputConstants.Key> result = new AtomicReference<>(KeybindUtil.UNKNOWN_KEYCODE);
 
 		KeybindUtil.MAP_BY_NAME.forEach(
 				(str, key) ->
 				{
-					if (key.getKeyCode() == keyCode)
+					if (key.getValue() == keyCode)
 					{
 						result.set(key);
 					}
@@ -341,10 +339,10 @@ public class KeybindWrapper
     public void clearKey()
     {
 		VanKeyMngr.debugLog("KeybindWrapper#clearKey(): id: [{}]", this.id);
-        InputUtil.KeyCode keyCode = InputUtil.UNKNOWN_KEYCODE;
+        InputConstants.Key key = KeybindUtil.UNKNOWN_KEYCODE;
         this.reset();
-        KeybindUtil.updateByID(this.id, keyCode);
-        this.keyCode = new KeyCodeWrapper(keyCode);
+        KeybindUtil.updateByID(this.id, key);
+        this.keyCode = new KeyCodeWrapper(key);
     }
 
 	public JsonElement toJson()

@@ -20,17 +20,17 @@
 
 package com.sakuraryoko.vkm.util;
 
-import com.google.gson.JsonElement;
-import com.google.gson.JsonPrimitive;
-import com.sakuraryoko.vkm.keybind.KeybindUtil;
-//#if MC >= 12109
-//$$ import net.minecraft.client.option.KeyBinding;
-//$$ import net.minecraft.util.Identifier;
-//#endif
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+//#if MC >= 12109
+//$$ import net.minecraft.client.KeyMapping;
+//$$ import net.minecraft.resources.ResourceLocation;
+//#endif
+
+import com.sakuraryoko.vkm.keybind.KeybindUtil;
 
 public class KeyCategory
 {
@@ -47,9 +47,9 @@ public class KeyCategory
 //#if MC >= 12109
     //$$ private void buildVanillaList()
     //$$ {
-        //$$ List<KeyBinding.Category> set = KeybindUtil.getCategoriesVanilla();
+        //$$ List<KeyMapping.Category> set = KeybindUtil.getCategoriesVanilla();
 
-        //$$ for (KeyBinding.Category e : set)
+        //$$ for (KeyMapping.Category e : set)
         //$$ {
             //$$ this.entries.add(new Entry(e));
         //$$ }
@@ -122,14 +122,14 @@ public class KeyCategory
         }
 
 //#if MC >= 12109
-    //$$ Entry(KeyBinding.Category vanilla)
+    //$$ Entry(KeyMapping.Category vanilla)
     //$$ {
             //$$ this.name = vanilla.id().toString();
     //$$ }
 
-    //$$ public KeyBinding.Category toVanilla()
+    //$$ public KeyMapping.Category toVanilla()
     //$$ {
-        //$$ return new KeyBinding.Category(Identifier.tryParse(this.getName()));
+        //$$ return new KeyMapping.Category(ResourceLocation.tryParse(this.getName()));
     //$$ }
 //#else
         public String toVanilla()

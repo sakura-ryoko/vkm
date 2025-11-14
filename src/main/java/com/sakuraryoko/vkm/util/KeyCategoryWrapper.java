@@ -21,16 +21,16 @@
 package com.sakuraryoko.vkm.util;
 
 import com.google.gson.JsonElement;
-//#if MC >= 12109
-//$$ import net.minecraft.client.option.KeyBinding;
-//#endif
 import org.jetbrains.annotations.Nullable;
+//#if MC >= 12109
+//$$ import net.minecraft.client.KeyMapping;
+//#endif
 
 public class KeyCategoryWrapper
 {
     private final KeyCategory.Entry entry;
 //#if MC >= 12109
-    //$$ private final KeyBinding.Category vanilla;
+    //$$ private final KeyMapping.Category vanilla;
 //#else
     private final String vanilla;
 //#endif
@@ -56,7 +56,7 @@ public class KeyCategoryWrapper
     }
 
 //#if MC >= 12109
-    //$$ private KeyCategoryWrapper(KeyBinding.Category vanilla)
+    //$$ private KeyCategoryWrapper(KeyMapping.Category vanilla)
     //$$ {
         //$$ KeyCategory.Entry entry = new KeyCategory.Entry(vanilla);
         //$$ this.vanilla = vanilla;
@@ -64,12 +64,12 @@ public class KeyCategoryWrapper
         //$$ this.putIfEmpty(entry);
     //$$ }
 
-    //$$ public static KeyCategoryWrapper fromVanilla(KeyBinding.Category vanilla)
+    //$$ public static KeyCategoryWrapper fromVanilla(KeyMapping.Category vanilla)
     //$$ {
         //$$ return new KeyCategoryWrapper(vanilla);
     //$$ }
 
-    //$$ public KeyBinding.Category getVanilla()
+    //$$ public KeyMapping.Category getVanilla()
     //$$ {
         //$$ return this.vanilla;
     //$$ }

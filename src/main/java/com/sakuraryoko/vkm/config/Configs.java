@@ -20,12 +20,17 @@
 
 package com.sakuraryoko.vkm.config;
 
+//#if MC >= 12100
+//$$ import java.nio.file.Files;
+//$$ import java.nio.file.Path;
+//#else
+import java.io.File;
+//#endif
+
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.sakuraryoko.vkm.VanKeyMngr;
-import com.sakuraryoko.vkm.Reference;
-import com.sakuraryoko.vkm.keybind.KeybindManager;
+
 import fi.dy.masa.malilib.config.ConfigUtils;
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.config.IConfigHandler;
@@ -33,13 +38,9 @@ import fi.dy.masa.malilib.config.options.ConfigBoolean;
 import fi.dy.masa.malilib.config.options.ConfigString;
 import fi.dy.masa.malilib.util.FileUtils;
 import fi.dy.masa.malilib.util.JsonUtils;
-
-//#if MC >= 12100
-//$$ import java.nio.file.Files;
-//$$ import java.nio.file.Path;
-//#else
-import java.io.File;
-//#endif
+import com.sakuraryoko.vkm.Reference;
+import com.sakuraryoko.vkm.VanKeyMngr;
+import com.sakuraryoko.vkm.keybind.KeybindManager;
 
 public class Configs implements IConfigHandler
 {

@@ -23,11 +23,12 @@ package com.sakuraryoko.vkm.util;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import net.minecraft.client.util.InputUtil;
+
+import com.mojang.blaze3d.platform.InputConstants;
 
 public class KeyTypeWrapper
 {
-    private final InputUtil.Type vanilla;
+    private final InputConstants.Type vanilla;
     private final KeyType type;
 
     public KeyTypeWrapper(KeyType type)
@@ -36,7 +37,7 @@ public class KeyTypeWrapper
         this.vanilla = type.toVanilla();
     }
 
-    public KeyTypeWrapper(InputUtil.Type type)
+    public KeyTypeWrapper(InputConstants.Type type)
     {
         this.type = KeyType.fromVanilla(type);
         this.vanilla = type;
@@ -47,7 +48,7 @@ public class KeyTypeWrapper
         return this.type;
     }
 
-    public InputUtil.Type getVanilla()
+    public InputConstants.Type getVanilla()
     {
         return this.vanilla;
     }

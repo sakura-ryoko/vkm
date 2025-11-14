@@ -20,9 +20,9 @@
 
 package com.sakuraryoko.vkm.event;
 
+import fi.dy.masa.malilib.hotkeys.*;
 import com.sakuraryoko.vkm.Reference;
 import com.sakuraryoko.vkm.config.Hotkeys;
-import fi.dy.masa.malilib.hotkeys.*;
 
 public class InputHandler implements IKeybindProvider, IKeyboardInputHandler, IMouseInputHandler
 {

@@ -20,15 +20,26 @@
 
 package com.sakuraryoko.vkm.event;
 
-import com.sakuraryoko.vkm.keybind.KeybindManager;
+import javax.annotation.Nullable;
+
+import net.minecraft.client.Minecraft;
+//#if MC >= 11502
+//$$ import net.minecraft.client.multiplayer.ClientLevel;
+//#else
+import net.minecraft.client.multiplayer.MultiPlayerLevel;
+//#endif
+
 import fi.dy.masa.malilib.interfaces.IWorldLoadListener;
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.world.ClientWorld;
+import com.sakuraryoko.vkm.keybind.KeybindManager;
 
 public class WorldLoadListener implements IWorldLoadListener
 {
     @Override
-    public void onWorldLoadPre(ClientWorld worldBefore, ClientWorld worldAfter, MinecraftClient mc)
+//#if MC >= 11502
+//$$	public void onWorldLoadPre(@Nullable ClientLevel worldBefore, @Nullable ClientLevel worldAfter, Minecraft mc)
+//#else
+    public void onWorldLoadPre(@Nullable MultiPlayerLevel worldBefore, @Nullable MultiPlayerLevel worldAfter, Minecraft mc)
+//#endif
     {
         // Save the settings before the integrated server gets shut down
         if (worldBefore != null)
@@ -44,7 +55,11 @@ public class WorldLoadListener implements IWorldLoadListener
     }
 
     @Override
-    public void onWorldLoadPost(ClientWorld worldBefore, ClientWorld worldAfter, MinecraftClient mc)
+//#if MC >= 11502
+//$$	public void onWorldLoadPost(@Nullable ClientLevel worldBefore, @Nullable ClientLevel worldAfter, Minecraft mc)
+//#else
+    public void onWorldLoadPost(@Nullable MultiPlayerLevel worldBefore, @Nullable MultiPlayerLevel worldAfter, Minecraft mc)
+//#endif
     {
         // Dimension Change / Logout
         KeybindManager.getInstance().reset(worldAfter == null);

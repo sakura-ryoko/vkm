@@ -1,9 +1,19 @@
 accessWidener v1 named
-accessible field net/minecraft/client/option/KeyBinding keysById Ljava/util/Map;
-accessible field net/minecraft/client/option/KeyBinding keyToBindings Ljava/util/Map;
-accessible field net/minecraft/client/option/KeyBinding keyCategories Ljava/util/Set;
-accessible field net/minecraft/client/option/KeyBinding categoryOrderMap Ljava/util/Map;
-accessible field net/minecraft/client/option/KeyBinding boundKey Lnet/minecraft/client/util/InputUtil$Key;
-accessible field net/minecraft/client/util/InputUtil$Key KEYS Ljava/util/Map;
-accessible field net/minecraft/client/util/InputUtil$Type map Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
-accessible field net/minecraft/client/util/InputUtil$Type name Ljava/lang/String;
+accessible field net/minecraft/client/KeyMapping ALL Ljava/util/Map;
+accessible field net/minecraft/client/KeyMapping MAP Ljava/util/Map;
+accessible field net/minecraft/client/KeyMapping CATEGORIES Ljava/util/Set;
+accessible field net/minecraft/client/KeyMapping CATEGORY_SORT_ORDER Ljava/util/Map;
+accessible field net/minecraft/client/KeyMapping name Ljava/lang/String;
+accessible field net/minecraft/client/KeyMapping defaultKey Lcom/mojang/blaze3d/platform/InputConstants$Key;
+accessible field net/minecraft/client/KeyMapping category Ljava/lang/String;
+accessible field net/minecraft/client/KeyMapping key Lcom/mojang/blaze3d/platform/InputConstants$Key;
+accessible field net/minecraft/client/KeyMapping isDown Z
+accessible field net/minecraft/client/KeyMapping clickCount I
+accessible field com/mojang/blaze3d/platform/InputConstants$Type map Lit/unimi/dsi/fastutil/ints/Int2ObjectMap;
+accessible field com/mojang/blaze3d/platform/InputConstants$Type defaultPrefix Ljava/lang/String;
+accessible field com/mojang/blaze3d/platform/InputConstants$Type displayTextSupplier Ljava/util/function/BiFunction;
+accessible field com/mojang/blaze3d/platform/InputConstants$Key name Ljava/lang/String;
+accessible field com/mojang/blaze3d/platform/InputConstants$Key type Lcom/mojang/blaze3d/platform/InputConstants$Type;
+accessible field com/mojang/blaze3d/platform/InputConstants$Key value I
+accessible field com/mojang/blaze3d/platform/InputConstants$Key displayName Lnet/minecraft/util/LazyLoadedValue;
+accessible field com/mojang/blaze3d/platform/InputConstants$Key NAME_MAP Ljava/util/Map;

@@ -20,19 +20,21 @@
 
 package com.sakuraryoko.vkm.keybind;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import com.google.common.collect.ImmutableList;
-import com.sakuraryoko.vkm.Reference;
-import com.sakuraryoko.vkm.VanKeyMngr;
-import com.sakuraryoko.vkm.config.option.ConfigKeybindVanilla;
+
+import net.minecraft.client.KeyMapping;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.TitleScreen;
+
 import fi.dy.masa.malilib.event.InputEventHandler;
 import fi.dy.masa.malilib.gui.Message;
 import fi.dy.masa.malilib.util.InfoUtils;
-
-import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.gui.screen.TitleScreen;
-import net.minecraft.client.options.KeyBinding;
+import com.sakuraryoko.vkm.Reference;
+import com.sakuraryoko.vkm.VanKeyMngr;
+import com.sakuraryoko.vkm.config.option.ConfigKeybindVanilla;
 
 public class KeybindManager
 {
@@ -75,7 +77,7 @@ public class KeybindManager
         this.buildKeybinds();
 	}
 
-	private void addEach(String id, KeyBinding keybind)
+	private void addEach(String id, KeyMapping keybind)
 	{
 		this.keybinds.add(new KeybindWrapper(keybind));
 	}
@@ -103,10 +105,10 @@ public class KeybindManager
 
 	public void resetAllKeybinds()
 	{
-		MinecraftClient mc = MinecraftClient.getInstance();
+		Minecraft mc = Minecraft.getInstance();
 		VanKeyMngr.debugLog("KeybindManager#resetAllKeybinds()");
 
-		if (mc.currentScreen == null || mc.currentScreen instanceof TitleScreen)
+		if (mc.screen == null || mc.screen instanceof TitleScreen)
 		{
 			this.resync();
 			this.keybinds.forEach(KeybindWrapper::reset);

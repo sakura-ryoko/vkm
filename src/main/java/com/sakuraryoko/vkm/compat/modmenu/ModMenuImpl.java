@@ -20,17 +20,17 @@
 
 package com.sakuraryoko.vkm.compat.modmenu;
 
-import com.sakuraryoko.vkm.Reference;
-import com.sakuraryoko.vkm.gui.GuiConfigs;
 //#if MC >= 11605
 //$$ import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 //$$ import com.terraformersmc.modmenu.api.ModMenuApi;
 //#else
 import io.github.prospector.modmenu.api.ModMenuApi;
-import net.minecraft.client.gui.screen.Screen;
-
+import net.minecraft.client.gui.screens.Screen;
 import java.util.function.Function;
 //#endif
+
+import com.sakuraryoko.vkm.Reference;
+import com.sakuraryoko.vkm.gui.GuiConfigs;
 
 public class ModMenuImpl implements ModMenuApi
 {

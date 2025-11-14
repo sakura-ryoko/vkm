@@ -20,19 +20,19 @@
 
 package com.sakuraryoko.vkm.gui;
 
-import com.sakuraryoko.vkm.Reference;
-import com.sakuraryoko.vkm.config.Configs;
-import com.sakuraryoko.vkm.config.Hotkeys;
-import com.sakuraryoko.vkm.keybind.KeybindManager;
+import java.util.Collections;
+import java.util.List;
+
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
 import fi.dy.masa.malilib.gui.button.ButtonGeneric;
 import fi.dy.masa.malilib.gui.button.IButtonActionListener;
 import fi.dy.masa.malilib.util.StringUtils;
-
-import java.util.Collections;
-import java.util.List;
+import com.sakuraryoko.vkm.Reference;
+import com.sakuraryoko.vkm.config.Configs;
+import com.sakuraryoko.vkm.config.Hotkeys;
+import com.sakuraryoko.vkm.keybind.KeybindManager;
 
 public class GuiConfigs extends GuiConfigsBase
 {

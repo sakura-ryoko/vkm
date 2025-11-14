@@ -22,30 +22,32 @@ package com.sakuraryoko.vkm.util;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import fi.dy.masa.malilib.util.JsonUtils;
-import net.minecraft.client.resource.language.I18n;
-import net.minecraft.client.util.InputUtil;
-//#if MC >= 12001
-//#else
-import net.minecraft.text.LiteralText;
-//#endif
-import net.minecraft.text.Text;
 import org.jetbrains.annotations.Nullable;
+
+import com.mojang.blaze3d.platform.InputConstants;
+import net.minecraft.client.resources.language.I18n;
+import net.minecraft.network.chat.Component;
+//#if MC >= 11904
+//#else
+import net.minecraft.network.chat.TextComponent;
+//#endif
+
+import fi.dy.masa.malilib.util.JsonUtils;
 
 public class KeyCodeWrapper
 {
     @Nullable
-    private final InputUtil.KeyCode vanilla;
+    private final InputConstants.Key vanilla;
     private final String name;
     private final KeyTypeWrapper type;
     private final int keyCode;
 
-    public KeyCodeWrapper(InputUtil.KeyCode keyCode)
+    public KeyCodeWrapper(InputConstants.Key keyCode)
     {
         this.vanilla = keyCode;
         this.name = keyCode.getName();
-        this.keyCode = keyCode.getKeyCode();
-        this.type = new KeyTypeWrapper(keyCode.getCategory());
+        this.keyCode = keyCode.getValue();
+        this.type = new KeyTypeWrapper(keyCode.getType());
     }
 
     public KeyCodeWrapper(String name, int keyCode, KeyTypeWrapper type)
@@ -53,11 +55,11 @@ public class KeyCodeWrapper
         this.name = name;
 		this.type = type;
         this.keyCode = keyCode;
-        this.vanilla = InputUtil.fromName(name);
+        this.vanilla = InputConstants.getKey(name);
     }
 
     @Nullable
-    public InputUtil.KeyCode getVanilla()
+    public InputConstants.Key getVanilla()
     {
         return this.vanilla;
     }
@@ -82,35 +84,35 @@ public class KeyCodeWrapper
 //#if MC >= 11605
         //$$ if (this.vanilla != null)
         //$$ {
-            //$$ return this.vanilla.getTranslationKey();
+            //$$ return this.vanilla.getName();
         //$$ }
 //#endif
 
         return this.name;
     }
 
-    public Text getTranslated()
+    public Component getTranslated()
     {
         //#if MC >= 11605
         //$$ if (this.vanilla != null)
         //$$ {
-            //$$ return this.vanilla.getLocalizedText();
+            //$$ return this.vanilla.getDisplayName();
         //$$ }
 //#endif
 
-        if (I18n.hasTranslation(this.getTranslationKey()))
+        if (I18n.exists(this.getTranslationKey()))
         {
 //#if MC >= 11904
-            //$$ return Text.of(I18n.translate(this.getTranslationKey()));
+            //$$ return Component.literal(I18n.get(this.getTranslationKey()));
 //#else
-            return new LiteralText(I18n.translate(this.getTranslationKey()));
+            return new TextComponent(I18n.get(this.getTranslationKey()));
 //#endif
         }
 
 //#if MC >= 11904
-        //$$ return Text.of(this.getTranslationKey());
+        //$$ return Component.literal(this.getTranslationKey());
 //#else
-        return new LiteralText(this.getTranslationKey());
+        return new TextComponent(this.getTranslationKey());
 //#endif
     }
 
@@ -193,7 +195,7 @@ public class KeyCodeWrapper
 
 				return (wrapper.keyCode == this.keyCode && wrapper.type.equals(this.type));
 			}
-			else if (InputUtil.KeyCode.class == obj.getClass() &&
+			else if (InputConstants.Key.class == obj.getClass() &&
 					this.getVanilla() != null)
 			{
 				return this.getVanilla().equals(obj);
