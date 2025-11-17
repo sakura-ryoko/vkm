@@ -1,6 +1,6 @@
 {
     "modmenu.descriptionTranslation.vkm": "Менеджер стандартних призначень клавіш для всіх, які будуть існувати в екосистемі MaLiLib",
-    "vkm.config.generic.comment.categoryColorPrefix": "The prefix color of Categories for Keybind displays\nThis configuration uses the Vanilla color Formatter syntax",
+    "vkm.config.generic.comment.categoryColorPrefix": "The prefix color of Categories for Keybind displays\nThis configuration uses the Vanilla color Formatter syntax X",
     "vkm.config.generic.comment.debugMessages": "Журналювання налагодження.",
     "vkm.config.generic.comment.nameColorPrefix": "The prefix color of Ids for Keybind displays\nThis configuration uses the Vanilla color Formatter syntax",
     "vkm.config.generic.name.categoryColorPrefix": "categoryColorPrefix",
