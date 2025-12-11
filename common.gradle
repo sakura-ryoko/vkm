@@ -6,6 +6,9 @@ apply plugin: 'com.replaymod.preprocess'
 int mcVersion = project.mcVersion
 
 repositories {
+	maven {
+		url = 'https://maven.parchmentmc.org'
+	}
     maven {
         url 'https://masa.dy.fi/maven'
     }
@@ -35,7 +38,12 @@ dependencies {
 	// loom
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 //	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-    mappings loom.officialMojangMappings()
+	mappings loom.layered() {
+		officialMojangMappings()
+		if (project.parchment_version.size() > 0) {
+			parchment("org.parchmentmc.data:parchment-${project.minecraft_version}:${project.parchment_version}@zip")
+		}
+	}
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "com.google.code.findbugs:jsr305:3.0.2"
 
