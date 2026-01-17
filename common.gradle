@@ -6,27 +6,22 @@ apply plugin: 'com.replaymod.preprocess'
 int mcVersion = project.mcVersion
 
 repositories {
-	maven {
-		url = 'https://maven.parchmentmc.org'
+	maven { url = 'https://maven.parchmentmc.org'
+		content { includeGroupAndSubgroups("org.parchmentmc.data") }
 	}
-    maven {
-        url 'https://masa.dy.fi/maven'
-    }
-    maven {
-        url 'https://maven.terraformersmc.com/releases'
-    }
-    maven {
-        url 'https://www.cursemaven.com'
-    }
-    maven {
-		url = 'https://jitpack.io'
+	maven { url = "https://masa.dy.fi/maven/sakura-ryoko"
+		content { includeGroupAndSubgroups("fi.dy.masa") }
 	}
-	maven {
-		url = 'https://maven.fallenbreath.me/releases'
+	maven { url = 'https://maven.fallenbreath.me/releases'
+		content { includeGroupAndSubgroups("me.fallenbreath") }
 	}
-    maven {
-        url = 'https://maven.nucleoid.xyz'
-    }
+	maven { url = 'https://maven.terraformersmc.com/releases/'
+		content { includeGroupAndSubgroups("com.terraformersmc") }
+	}
+	maven { url = 'https://maven.nucleoid.xyz'
+		content { includeGroupAndSubgroups("eu.pb4") }
+	}
+	maven { url = 'https://jitpack.io' }
 }
 
 // https://github.com/FabricMC/fabric-loader/issues/783
