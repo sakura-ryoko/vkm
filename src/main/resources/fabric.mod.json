@@ -2,16 +2,19 @@
     "schemaVersion": 1,
     "id": "${id}",
     "version": "${version}",
+
     "name": "${name}",
     "description": "Vanilla Keybind Manager for fabric mods utilizing MaLiLib",
     "authors": [
         "Sakura-Ryoko"
     ],
     "contact": {
-        "homepage": "https://modrinth.com",
+        "homepage": "https://modrinth.com/mod/vkm",
         "sources": "https://github.com/sakura-ryoko/vkm"
     },
+
     "icon": "assets/vkm/icon.png",
+
     "environment": "client",
     "entrypoints": {
         "main": [
@@ -25,11 +28,10 @@
         "vkm.mixins.json"
     ],
     "accessWidener": "vkm.accesswidener",
+
     "depends": {
         "fabricloader": ">=0.11.4",
         "minecraft": "${minecraft_dependency}",
-        "malilib": "${malilib_dependency}",
-        "conditional-mixin": ">=0.2.0",
-        "mixinextras": ">=0.3.0"
+        "malilib": "${malilib_dependency}"
     }
 }
