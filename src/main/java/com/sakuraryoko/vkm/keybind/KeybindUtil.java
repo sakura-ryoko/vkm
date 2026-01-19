@@ -187,4 +187,17 @@ public class KeybindUtil
 
         return "["+cat+keybind.getTranslatedCategory()+"§r] ("+id+keybind.getTranslatedId()+"§r)";
     }
+
+    public static int getDebugModifierKeyCode()
+    {
+        KeyMapping keyBinding = getByIdVanilla("key.debug.modifier");
+
+        if (keyBinding == null)
+        {
+            return -1;
+        }
+
+        InputConstants.Key key = keyBinding.key;
+        return key.getValue();
+    }
 }
