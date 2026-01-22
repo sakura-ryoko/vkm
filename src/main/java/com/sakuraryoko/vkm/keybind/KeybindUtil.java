@@ -190,14 +190,18 @@ public class KeybindUtil
 
     public static int getDebugModifierKeyCode()
     {
-        KeyMapping keyBinding = getByIdVanilla("key.debug.modifier");
+        //#if MC >= 1.21.11
+        //$$ KeyMapping keyBinding = getByIdVanilla("key.debug.modifier");
 
-        if (keyBinding == null)
-        {
-            return -1;
-        }
+        //$$ if (keyBinding == null)
+        //$$ {
+            //$$ return -1;
+        //$$ }
 
-        InputConstants.Key key = keyBinding.key;
-        return key.getValue();
+        //$$ InputConstants.Key key = keyBinding.key;
+        //$$ return key.getValue();
+        //#else
+        return -1;
+        //#endif
     }
 }

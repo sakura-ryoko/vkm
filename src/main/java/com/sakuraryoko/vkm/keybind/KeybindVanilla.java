@@ -170,8 +170,12 @@ public class KeybindVanilla implements IKeybind
 
     private boolean isDebugKey()
     {
-        String id = this.keybind.getId();
-        return id.startsWith("key.debug.") && !id.equals("key.debug.modifier") && !id.equals("key.debug.overlay");
+        //#if MC >= 1.21.11
+        //$$ String id = this.keybind.getId();
+        //$$ return id.startsWith("key.debug.") && !id.equals("key.debug.modifier") && !id.equals("key.debug.overlay");
+        //#else
+        return false;
+        //#endif
     }
 
     @Override
