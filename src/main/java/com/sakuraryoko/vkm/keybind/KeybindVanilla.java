@@ -168,6 +168,16 @@ public class KeybindVanilla implements IKeybind
         return this.keybind.matchesKey(keyCode, -1) || this.keybind.matchesMouse(keyCode);
     }
 
+    private boolean isDebugKey()
+    {
+        //#if MC >= 1.21.11
+        //$$ String id = this.keybind.getId();
+        //$$ return id.startsWith("key.debug.") && !id.equals("key.debug.modifier") && !id.equals("key.debug.overlay");
+        //#else
+        return false;
+        //#endif
+    }
+
     @Override
     public boolean overlaps(IKeybind other)
     {
@@ -189,7 +199,11 @@ public class KeybindVanilla implements IKeybind
                 return false;
             }
 
-            return kbv.keybind.matchesKey(keyCode, -1) || kbv.keybind.matchesMouse(keyCode);
+            // If both are normal keys, or both are debug keys, we can just compare the base key code.
+            if (this.isDebugKey() == kbv.isDebugKey())
+            {
+                return kbv.keybind.matchesKey(keyCode, -1) || kbv.keybind.matchesMouse(keyCode);
+            }
         }
 
         // Cloned from KeybindMulti to have similar behavior.
@@ -266,6 +280,16 @@ public class KeybindVanilla implements IKeybind
     public List<Integer> getKeys()
     {
         List<Integer> list = new ArrayList<>();
+
+        if (this.isDebugKey())
+        {
+            int modCode = KeybindUtil.getDebugModifierKeyCode();
+
+            if (modCode != -1)
+            {
+                list.add(modCode);
+            }
+        }
 
         list.add(this.getKeyCode());
 
