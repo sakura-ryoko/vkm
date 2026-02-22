@@ -11,3 +11,5 @@ Tired of fixing keybinds from different Keybind systems?  This is your solution.
 ![Default-Hotkey](https://github.com/sakura-ryoko/vkm/blob/multi/Default-Hotkey.png?raw=true)
 
 _or optionally access it using the MaLiLib Config Switcher from 1.21+._
+
+[![Join Sakura's RyokoCraft Discord](https://sakuraryoko.com/files/1398873/discord-300px.png)](https://discord.gg/CUPAjkXw)
