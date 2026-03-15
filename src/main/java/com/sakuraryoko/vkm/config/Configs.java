@@ -37,10 +37,10 @@ import fi.dy.masa.malilib.config.IConfigHandler;
 import fi.dy.masa.malilib.config.options.ConfigBoolean;
 import fi.dy.masa.malilib.config.options.ConfigString;
 import fi.dy.masa.malilib.util.FileUtils;
-import fi.dy.masa.malilib.util.JsonUtils;
 import com.sakuraryoko.vkm.Reference;
 import com.sakuraryoko.vkm.VanKeyMngr;
 import com.sakuraryoko.vkm.keybind.KeybindManager;
+import com.sakuraryoko.vkm.util.JsonUtils;
 
 public class Configs implements IConfigHandler
 {
@@ -80,7 +80,7 @@ public class Configs implements IConfigHandler
 
         //$$ if (Files.exists(configFile) && Files.isReadable(configFile))
         //$$ {
-            //$$ JsonElement element = JsonUtils.parseJsonFileAsPath(configFile);
+            //$$ JsonElement element = JsonUtils.parseJsonFile(configFile);
 
             //$$ if (element != null && element.isJsonObject())
             //$$ {
@@ -135,7 +135,7 @@ public class Configs implements IConfigHandler
             //$$ ConfigUtils.writeConfigBase(root, "Generic", Generic.OPTIONS);
             //$$ ConfigUtils.writeConfigBase(root, "Hotkeys", Hotkeys.HOTKEY_LIST);
 
-            //$$ JsonUtils.writeJsonToFileAsPath(root, dir.resolve(CONFIG_FILE_NAME));
+            //$$ JsonUtils.writeJsonToFile(root, dir.resolve(CONFIG_FILE_NAME));
         //$$ }
         //$$ else
         //$$ {

@@ -32,7 +32,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 //#endif
 
-import fi.dy.masa.malilib.util.JsonUtils;
 
 public class KeyCodeWrapper
 {

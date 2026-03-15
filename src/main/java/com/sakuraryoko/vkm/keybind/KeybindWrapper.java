@@ -38,12 +38,8 @@ import net.minecraft.network.chat.TextComponent;
 //$$ import net.minecraft.client.input.KeyEvent;
 //#endif
 
-import fi.dy.masa.malilib.util.JsonUtils;
 import com.sakuraryoko.vkm.VanKeyMngr;
-import com.sakuraryoko.vkm.util.KeyCategoryWrapper;
-import com.sakuraryoko.vkm.util.KeyCodeWrapper;
-import com.sakuraryoko.vkm.util.KeyType;
-import com.sakuraryoko.vkm.util.KeyTypeWrapper;
+import com.sakuraryoko.vkm.util.*;
 
 public class KeybindWrapper
 {
