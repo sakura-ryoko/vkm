@@ -75,7 +75,26 @@ public class Configs implements IConfigHandler
 
     public static void loadFromFile()
     {
-//#if MC >= 12100
+//#if MC >= 26.1
+        //$$ Path configFile = FileUtils.getConfigDirectory().resolve(CONFIG_FILE_NAME);
+
+        //$$ if (Files.exists(configFile) && Files.isReadable(configFile))
+        //$$ {
+            //$$ JsonElement element = JsonUtils.parseJsonFile(configFile);
+
+            //$$ if (element != null && element.isJsonObject())
+            //$$ {
+                //$$ JsonObject root = element.getAsJsonObject();
+
+                //$$ ConfigUtils.readConfigBase(root, "Generic", Generic.OPTIONS);
+                //$$ ConfigUtils.readConfigBase(root, "Hotkeys", Hotkeys.HOTKEY_LIST);
+            //$$ }
+        //$$ }
+        //$$ else
+        //$$ {
+            //$$ VanKeyMngr.LOGGER.error("loadFromFile(): Failed to load config file '{}'.", configFile.toAbsolutePath());
+        //$$ }
+//#elseif MC >= 12100
         //$$ Path configFile = FileUtils.getConfigDirectoryAsPath().resolve(CONFIG_FILE_NAME);
 
         //$$ if (Files.exists(configFile) && Files.isReadable(configFile))
@@ -120,7 +139,28 @@ public class Configs implements IConfigHandler
 
     public static void saveToFile()
     {
-//#if MC >= 12100
+//#if MC >= 26.1
+        //$$ Path dir = FileUtils.getConfigDirectory();
+
+        //$$ if (!Files.exists(dir))
+        //$$ {
+            //$$ FileUtils.createDirectoriesIfMissing(dir);
+        //$$ }
+
+        //$$ if (Files.isDirectory(dir))
+        //$$ {
+            //$$ JsonObject root = new JsonObject();
+
+            //$$ ConfigUtils.writeConfigBase(root, "Generic", Generic.OPTIONS);
+            //$$ ConfigUtils.writeConfigBase(root, "Hotkeys", Hotkeys.HOTKEY_LIST);
+
+            //$$ JsonUtils.writeJsonToFile(root, dir.resolve(CONFIG_FILE_NAME));
+        //$$ }
+        //$$ else
+        //$$ {
+            //$$ VanKeyMngr.LOGGER.error("saveToFile(): Config Folder '{}' does not exist!", dir.toAbsolutePath());
+        //$$ }
+//#elseif MC >= 12100
         //$$ Path dir = FileUtils.getConfigDirectoryAsPath();
 
         //$$ if (!Files.exists(dir))
