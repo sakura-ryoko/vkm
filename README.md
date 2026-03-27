@@ -12,4 +12,4 @@ Tired of fixing keybinds from different Keybind systems?  This is your solution.
 
 _or optionally access it using the MaLiLib Config Switcher from 1.21+._
 
-[![Join Sakura's RyokoCraft Discord](https://sakuraryoko.com/files/1398873/discord-300px.png)](https://discord.gg/UPj2aU7d)
+[![Join Sakura's RyokoCraft Discord](https://sakuraryoko.com/files/1398873/discord-300px.png)](https://discord.gg/ryokocraftmc)
