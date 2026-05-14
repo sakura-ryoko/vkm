@@ -9,7 +9,7 @@
     "vkm.config.hotkeys.comment.openConfigGui": "Відкрити налаштування.",
     "vkm.config.hotkeys.comment.resetAllVanillaKeybinds": "Скидає всі стандартні призначення клавіш до усталених.",
     "vkm.config.hotkeys.name.openConfigGui": "openConfigGui",
-    "vkm.config.hotkeys.name.resetAllVanillaKeybinds": "resetAllVanillaKeybinds",
+    "vkm.config.hotkeys.name.resetAllVanillaKeybinds": "Скидання усіх стандартних призначень клавіш.",
     "vkm.config.hotkeys.prettyName.resetAllVanillaKeybinds": "Скидання усіх стандартних призначень клавіш.",
     "vkm.gui.button.config_gui.generic": "Загальні",
     "vkm.gui.button.config_gui.hotkeys": "Гарячі клавіші",
