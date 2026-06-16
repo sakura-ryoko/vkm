@@ -28,7 +28,6 @@ import com.google.gson.JsonObject;
 
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.KeyMapping;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 //#if MC >= 11904
 //#else
@@ -113,7 +112,7 @@ public class KeybindWrapper
 				scanCodeName = KeybindUtil.getTypeName(InputConstants.Type.MOUSE) +"."+ (code + 1);
 		}
 
-		return scanCodeName == null ? I18n.get(keyCodeName) : scanCodeName;
+		return scanCodeName == null ? LangWrap.get(keyCodeName) : scanCodeName;
 	}
 
 	public String getId()
@@ -188,14 +187,14 @@ public class KeybindWrapper
 
 	public String getTranslated()
 	{
-		if (I18n.exists(this.translationKey))
+		if (LangWrap.has(this.translationKey))
 		{
-			return I18n.get(this.translationKey);
+			return LangWrap.get(this.translationKey);
 		}
 
-        if (I18n.exists(this.id))
+        if (LangWrap.has(this.id))
         {
-            return I18n.get(this.id);
+            return LangWrap.get(this.id);
         }
 
 		return this.id;
@@ -209,9 +208,9 @@ public class KeybindWrapper
 //#else
     public String getTranslatedCategory()
     {
-        if (I18n.exists(this.category.getVanilla()))
+        if (LangWrap.has(this.category.getVanilla()))
         {
-            return I18n.get(this.category.getVanilla());
+            return LangWrap.get(this.category.getVanilla());
         }
 
         return this.category.getVanilla();
@@ -220,9 +219,9 @@ public class KeybindWrapper
 
     public String getTranslatedId()
     {
-        if (I18n.exists(this.id))
+	    if (LangWrap.has(this.id))
         {
-            return I18n.get(this.id);
+            return LangWrap.get(this.id);
         }
 
         return this.id;

@@ -31,10 +31,10 @@ public class Hotkeys
     private static final String HOTKEYS_KEY = Reference.MOD_ID + ".config.hotkeys";
 
 //#if MC >= 12100
-//$$    public static final ConfigHotkey OPEN_CONFIG_GUI				= new ConfigHotkey("openConfigGui", "O,C").apply(HOTKEYS_KEY);
+//$$    public static final ConfigHotkey OPEN_CONFIG_GUI				= new ConfigHotkey("openConfigGui", "RIGHT_BRACKET,C").apply(HOTKEYS_KEY);
 //$$    public static final ConfigHotkey RESET_ALL_VANILLA_KEYBINDS		= new ConfigHotkey("resetAllVanillaKeybinds", "").apply(HOTKEYS_KEY);
 //#else
-    public static final ConfigHotkey OPEN_CONFIG_GUI            = new ConfigHotkey("openConfigGui", "O,C", HOTKEYS_KEY+".comment.openConfigGui");
+    public static final ConfigHotkey OPEN_CONFIG_GUI            = new ConfigHotkey("openConfigGui", "RIGHT_BRACKET,C", HOTKEYS_KEY+".comment.openConfigGui");
 	public static final ConfigHotkey RESET_ALL_VANILLA_KEYBINDS = new ConfigHotkey("resetAllVanillaKeybinds", "", HOTKEYS_KEY+".comment.resetAllVanillaKeybinds");
 //#endif
 

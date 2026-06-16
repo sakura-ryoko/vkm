@@ -25,7 +25,6 @@ import com.google.gson.JsonObject;
 import org.jetbrains.annotations.Nullable;
 
 import com.mojang.blaze3d.platform.InputConstants;
-import net.minecraft.client.resources.language.I18n;
 import net.minecraft.network.chat.Component;
 //#if MC >= 11904
 //#else
@@ -92,23 +91,23 @@ public class KeyCodeWrapper
 
     public Component getTranslated()
     {
-        //#if MC >= 11605
+//#if MC >= 11605
         //$$ if (this.vanilla != null)
         //$$ {
             //$$ return this.vanilla.getDisplayName();
         //$$ }
 //#endif
 
-        if (I18n.exists(this.getTranslationKey()))
+        if (LangWrap.has(this.getTranslationKey()))
         {
-//#if MC >= 11904
-            //$$ return Component.literal(I18n.get(this.getTranslationKey()));
+//#if MC >= 1.19.4
+            //$$ return Component.literal(LangWrap.get(this.getTranslationKey()));
 //#else
-            return new TextComponent(I18n.get(this.getTranslationKey()));
+            return new TextComponent(LangWrap.get(this.getTranslationKey()));
 //#endif
         }
 
-//#if MC >= 11904
+//#if MC >= 1.19.4
         //$$ return Component.literal(this.getTranslationKey());
 //#else
         return new TextComponent(this.getTranslationKey());

@@ -134,6 +134,12 @@ public class Configs implements IConfigHandler
         }
 //#endif
 
+        // FIX FROM default "O + C" because as of 26.2 ("O") is used by the "Friends List" .
+        if (Hotkeys.OPEN_CONFIG_GUI.getKeybind().getStringValue().equals("O,C"))
+        {
+            Hotkeys.OPEN_CONFIG_GUI.resetToDefault();
+        }
+
         KeybindManager.getInstance().resync();
     }
 

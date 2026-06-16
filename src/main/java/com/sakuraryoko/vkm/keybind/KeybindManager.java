@@ -108,7 +108,11 @@ public class KeybindManager
 		Minecraft mc = Minecraft.getInstance();
 		VanKeyMngr.debugLog("KeybindManager#resetAllKeybinds()");
 
+		//#if MC >= 26.2
+		//$$ if (mc.gui.screen() == null || mc.gui.screen() instanceof TitleScreen)
+		//#else
 		if (mc.screen == null || mc.screen instanceof TitleScreen)
+		//#endif
 		{
 			this.resync();
 			this.keybinds.forEach(KeybindWrapper::reset);

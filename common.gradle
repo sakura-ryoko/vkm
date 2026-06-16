@@ -119,6 +119,8 @@ if (mcVersion >= 260000) {
 JavaVersion MIXIN_COMPATIBILITY_LEVEL = JAVA_COMPATIBILITY
 
 loom {
+	accessWidenerPath = file("src/main/resources/vkm.accesswidener")
+
 	def commonVmArgs = ['-Dmixin.debug.export=true', '-Dmixin.debug.countInjections=true']
 	runConfigs.configureEach {
 		// to make sure it generates all "Minecraft Client (:subproject_name)" applications
@@ -126,7 +128,7 @@ loom {
 		runDir '../../run'
 		vmArgs commonVmArgs
 	}
-//	// [FEATURE] MIXIN_AUDITOR
+	// [FEATURE] MIXIN_AUDITOR
 //	runs {
 //		def auditVmArgs = [*commonVmArgs, '-DmixinAuditor.audit=true']
 //		clientMixinAudit {
@@ -135,14 +137,6 @@ loom {
 //			ideConfigGenerated false
 //		}
 //	}
-
-//		serverMixinAudit {
-//			server()
-//			vmArgs auditVmArgs
-//			ideConfigGenerated false
-//		}
-
-	accessWidenerPath = file("src/main/resources/vkm.accesswidener")
 }
 
 String modVersionSuffix = ''

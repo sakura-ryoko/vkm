@@ -23,6 +23,8 @@ package com.sakuraryoko.vkm.gui;
 import java.util.Collections;
 import java.util.List;
 
+import net.minecraft.client.Minecraft;
+
 import fi.dy.masa.malilib.config.IConfigBase;
 import fi.dy.masa.malilib.gui.GuiConfigsBase;
 import fi.dy.masa.malilib.gui.button.ButtonBase;
@@ -57,6 +59,13 @@ public class GuiConfigs extends GuiConfigsBase
         {
             x += this.createButton(x, y, -1, tab);
         }
+    }
+
+    @Override
+    public void removed()
+    {
+        Minecraft.getInstance().options.save();
+        super.removed();
     }
 
     private int createButton(int x, int y, int width, ConfigGuiTab tab)
