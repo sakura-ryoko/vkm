@@ -16,6 +16,6 @@
     "vkm.gui.button.config_gui.vanilla": "바닐라",
     "vkm.gui.title.configs": "바닐라 키지정 관리자 설정 - %s",
     "vkm.hotkeys.category.hotkeys": "바닐라 키지정 관리자 단축키",
-    "vkm.message.reset_all_keybinds.error": "모든 바닐라 키지정을 재설정하기 전에 열린 스크린을 모두 닫아야 합니다.",
+    "vkm.message.reset_all_keybinds.error": "모든 바닐라 키지정을 재설정하기 전에 열린 화면을 모두 닫아야 합니다.",
     "vkm.message.reset_all_keybinds.success": "모든 바닐라 키지정이 기본값으로 재설정되었습니다."
 }
